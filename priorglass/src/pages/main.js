@@ -14,21 +14,21 @@ const Main = observer(() => {
 
     return (
         <main>
-          <Container>
+          <Container className="mt-3">
             <Row>
               <Col sm={4}>
-                <div className="mr2-0 pos-fix">
-                  <DropdownButton id="dropdown-basic-button" title="Вид стекла ">
+                <div className="position-fixed">
+                  <DropdownButton className="mb-3" id="dropdown-basic-button" title="Вид стекла ">
                     {device.types.map(type =>
                       <Dropdown.Item href="#/" key={type.id}>{type.name}</Dropdown.Item>  
                     )}
                   </DropdownButton>
-                  <DropdownButton id="dropdown-basic-button" title="Ширина, мм ">
+                  <DropdownButton className="mb-3" id="dropdown-basic-button" title="Ширина, мм ">
                     {device.sizes.map(width => 
                       <Dropdown.Item href="#/120" key={width.id}>{width.width}</Dropdown.Item>  
                     )}
                   </DropdownButton>
-                  <DropdownButton id="dropdown-basic-button" title="Высота, мм ">
+                  <DropdownButton className="mb-3" id="dropdown-basic-button" title="Высота, мм ">
                   {device.sizes.map(height => 
                       <Dropdown.Item href="#/120" key={height.id}>{height.height}</Dropdown.Item>  
                     )}
@@ -36,13 +36,13 @@ const Main = observer(() => {
                 </div>
               </Col>
               <Col sm={8}>
-                <div className="d-flex justify-content-center mr0-0-2-0">
-                  <Button className="mr0-2 height-fit-content">Товары</Button>
-                  <Button className="mr0-2 height-fit-content">Услуги</Button>
+                <div className="d-flex justify-content-center mb-3">
+                  <Button className="mx-3">Товары</Button>
+                  <Button className="mx-3">Услуги</Button>
                 </div>
-                <div className="products">
+                <div className="d-flex justify-content-center flex-wrap">
                 {device.devices.map(device =>
-                  <Card key={device.id}  style={{ width: '13rem' }}>
+                  <Card className="m-3" key={device.id}  style={{ width: '13rem' }}>
                       <Card.Img variant="top" src="https://via.placeholder.com/100" />
                       <Card.Body>
                         <h5>{device.name}</h5>
