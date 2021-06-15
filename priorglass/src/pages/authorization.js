@@ -5,7 +5,7 @@ import { LOGIN_ROUTE } from '../routes/consts'
 const Authorizaton = () => {
 
     const location = useLocation()
-    const isLogin = location === LOGIN_ROUTE
+    const isLogin = location.pathname === LOGIN_ROUTE
 
     // ------ Разработать регистрацию + авторизацию в здесь ------ //
 
