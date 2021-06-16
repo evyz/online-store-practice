@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/Formcontrol'
 import Button from 'react-bootstrap/Button'
 import { useHistory } from 'react-router'
-import { ADMIN_ROUTE } from '../routes/consts'
+import { ADMIN_ROUTE, MAIN_ROUTE } from '../routes/consts'
 
 const Header = () => {
   
@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <header>
       <Navbar bg="light" variant="light">
-        <Navbar.Brand href="#home">ПриорГласс</Navbar.Brand>
+        <Navbar.Brand href={MAIN_ROUTE}>ПриорГласс</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="#about">О Компании</Nav.Link>
           <Nav.Link href="#other">Другое</Nav.Link>
@@ -22,7 +22,7 @@ const Header = () => {
           <FormControl type="text" placeholder="Поиск" className="mr-sm-2" />
           <Button variant="outline-primary">Поиск</Button>
         </Form>
-        <Button className="ml-3" onclick={() => history.push(ADMIN_ROUTE)}>Панель Админа</Button>
+        <Button className="ml-3" onClick={() => history.push(ADMIN_ROUTE)}>Панель Админа</Button>
       </Navbar>
     </header>
   );

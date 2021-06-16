@@ -8,9 +8,13 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import Card from 'react-bootstrap/Card'
 import { observer } from 'mobx-react-lite'
 import { Context } from '..'
+import { useHistory } from 'react-router'
+import { DEVICE_ROUTE } from '../routes/consts'
 
 const Main = observer(() => {
     const {device} = useContext(Context)
+
+    const history = useHistory()
 
     return (
         <main>
@@ -47,7 +51,7 @@ const Main = observer(() => {
                       <Card.Body>
                         <h5>{device.name}</h5>
                         <Card.Text>Цена: {device.price}&#8381;</Card.Text>
-                        <Button variant="primary">Подробнее</Button>
+                        <Button variant="primary" onClick={() => history.push(DEVICE_ROUTE + '/' + device.id) } >Подробнее</Button>
                       </Card.Body>  
                   </Card>
                   )}
