@@ -36,6 +36,7 @@ const Basket = () => {
 
     return (
         <main>
+            <h1 className="mt-3 d-flex justify-content-center">Корзина</h1>
             <Container className="mt-3">
                 <Row>
                     <Col className="d-flex flex-wrap" sm={8}>
