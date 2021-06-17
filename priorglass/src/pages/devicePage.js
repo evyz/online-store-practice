@@ -19,7 +19,7 @@ const DevicePage = () => {
         fetchDevice(id).then(data => {
             setDevice(data)
         })
-    }, [])
+    }, [id])
 
     let err = false;
     if(device === null){

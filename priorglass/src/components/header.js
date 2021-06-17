@@ -4,13 +4,27 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/Formcontrol'
 import Button from 'react-bootstrap/Button'
 import { useHistory } from 'react-router'
-import { ADMIN_ROUTE, LOGIN_ROUTE, MAIN_ROUTE } from '../routes/consts'
+import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, MAIN_ROUTE } from '../routes/consts'
 import { observer } from 'mobx-react-lite'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { Context } from '..'
+import jwtDecode from 'jwt-decode'
+
+import Calculator from './modal/calculator'
 
 const Header = observer(() => {
   const {user} = useContext(Context)
+
+  const [calc, setCalc] = useState(false)
+
+  if(localStorage.getItem('token')){
+    const decoded = jwtDecode(localStorage.getItem('token'))
+    if(!decoded){
+      user.setIsAuth(false)
+    }
+  } else {
+    user.setIsAuth(false)
+  }
   
   const history = useHistory()
 
@@ -28,6 +42,8 @@ const Header = observer(() => {
         <Nav className="mr-auto">
           <Nav.Link>О Компании</Nav.Link>
           <Nav.Link>Другое</Nav.Link>
+          <Nav.Link onClick={() => setCalc(true)}>Калькулятор</Nav.Link>
+          {user.isAuth ? <Nav.Link onClick={() => history.push(BASKET_ROUTE)}>Корзина</Nav.Link> : <></>}
         </Nav>
         <Form inline>
           {!user.isAuth ? 
@@ -37,6 +53,7 @@ const Header = observer(() => {
           }
         </Form>
         {user.isAuth ? <Button className="ml-3" onClick={() => history.push(ADMIN_ROUTE)}>Панель Админа</Button> : <></>}
+        <Calculator  active={calc} setActive={setCalc} />
       </Navbar>
     </header>
   );
