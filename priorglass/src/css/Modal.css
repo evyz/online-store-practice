@@ -22,9 +22,9 @@
     left: 0;
     top: 0;
     
-    opacity: 50%;
     position: absolute;
-    background: black;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
 
     z-index: -1;
 }
@@ -34,8 +34,8 @@
 }
 
 .active .content{
-    width: 1140px;
-    height: 700px;
+    width: 80vw;
+    height: 100vh;
 
     background: white;
 
@@ -56,6 +56,11 @@
     color: white;
 }
 
+.calcForm {
+    border: 1px solid #ced4da !important;
+    border-radius: .25rem;
+    padding: 1rem;
+}
 
 /* ----- chat in MAIN_ROUTE ------ */
 
