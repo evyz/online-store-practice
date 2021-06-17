@@ -1,39 +1,39 @@
-const { Device } = require("../db/models")
+const { Device, Width, Height } = require("../db/models")
 
 class DeviceController{
     async getAll(req,res,next){
-        let {typeId, width, height} = req.query
+        let {typeId, widthId, heightId} = req.query
 
         let devices;
 
         // All
-        if(!typeId && !width && !height){
+        if(!typeId && !widthId && !heightId){
             devices = await Device.findAll({})
         }
-        if(typeId && width && height){
-            devices = await Device.findAll({where : {typeId, size_w : width, size_h : height}})
+        if(typeId && widthId && heightId){
+            devices = await Device.findAll({where : {typeId, widthId, heightId}})
         }
 
         // 1 from all
-        if(typeId && !width && !height){
+        if(typeId && !widthId && !heightId){
             devices = await Device.findAll({where: {typeId}})
         }
-        if(!typeId && width && !height){
-            devices = await Device.findAll({where: {size_w : width}})
+        if(!typeId && widthId && !heightId){
+            devices = await Device.findAll({where: {widthId}})
         }
-        if(!typeId && !width && height){
-            devices = await Device.findAll({where: {size_h : height}})
+        if(!typeId && !widthId && heightId){
+            devices = await Device.findAll({where: {heightId}})
         }
 
         // 2 from all
-        if(typeId && width && !height){
-            devices = await Device.findAll({where: {typeId, size_w : width}})
+        if(typeId && widthId && !heightId){
+            devices = await Device.findAll({where: {typeId, widthId}})
         }
-        if(typeId && !width && height){
-            devices = await Device.findAll({where: {typeId, size_h : height}})
+        if(typeId && !widthId && heightId){
+            devices = await Device.findAll({where: {typeId, heightId}})
         }
-        if(!typeId && width && height){
-            devices = await Device.findAll({where: {size_w : width, size_h : height}})
+        if(!typeId && widthId && heightId){
+            devices = await Device.findAll({where: {widthId, heightId}})
         }
 
         return res.json(devices)
@@ -48,10 +48,32 @@ class DeviceController{
 
     async createDevice(req,res,next){
         const {name, price, width, height, typeId} = req.body
+
+        const checkWidth = await Width.findOne({where : {size : width}})
+        let addWidth;
+        let addHeight;
+        if(!checkWidth){
+            addWidth = await Width.create({size : width})
+        }
+
+        const checkHeight = await Height.findOne({where : {size : height}})
+        if(!checkHeight){
+            addHeight = await Height.create({size : height})
+        }
         
-        const device = await Device.create({name, price, size_w: width, size_h: height, typeId})
+        const device = await Device.create({name, price, widthId : addWidth.id, heightId: addHeight.id, typeId})
         
         return res.json(device)
+    }
+
+
+    async getWidth (req,res,next){
+        const devices = await Width.findAll()
+        return res.json(devices)
+    }
+    async getHeight (req,res,next){
+        const devices = await Height.findAll()
+        return res.json(devices)
     }
 
 }

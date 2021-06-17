@@ -10,7 +10,7 @@ import { observer } from 'mobx-react-lite'
 import { Context } from '..'
 import { useHistory } from 'react-router'
 import { DEVICE_ROUTE } from '../routes/consts'
-import { fetchDevices, fetchTypes } from '../http/deviceApi'
+import { fetchDevices, fetchTypes, getHeight, getWidth } from '../http/deviceApi'
 
 import '../css/Modal.css'
 
@@ -30,17 +30,25 @@ const Main = observer(() => {
       });
       fetchDevices().then(data => {
         device.setDevices(data)
+      });
+      getWidth().then(data => {
+        device.setWidth(data)
+      })
+      getHeight().then(data => {
+        device.setHeight(data)
       })
     }, [])
 
     useEffect(() => {
-      fetchDevices(device.type.id).then(data => {
+      fetchDevices(device.selectedWidth.id, device.selectedHeight.id,device.type.id).then(data => {
         device.setDevices(data)
       })
-    }, [device.type])
+    }, [device.selectedWidth, device.selectedHeight ,device.type])
 
     const dropFilter = () => {
       device.setType({})
+      device.setSelectedWidth({})
+      device.setSelectedHeight({})
     }
 
     return (
@@ -55,15 +63,17 @@ const Main = observer(() => {
                       <Dropdown.Item  key={type.id} onClick={() => device.setType(type)} >{type.name}</Dropdown.Item>  
                     )}
                   </DropdownButton>
-                  <DropdownButton className="mb-3" id="dropdown-basic-button" title="Ширина, мм ">
-                    {device.width.map(width => 
-                      <Dropdown.Item  key={width.id}>{width.width}</Dropdown.Item>  
+                  <span>Укажите ширину стекла:</span>
+                  <DropdownButton className="mb-3" id="dropdown-basic-button"  title={device.width.size}>
+                    {device.width.map(type =>
+                      <Dropdown.Item  key={type.id} onClick={() => device.setSelectedWidth(type)} >{type.size}</Dropdown.Item>  
                     )}
                   </DropdownButton>
-                  <DropdownButton className="mb-3" id="dropdown-basic-button" title="Высота, мм ">
-                  {/* {device.sizes.map(height => 
-                      <Dropdown.Item  key={height.id}>{height.height}</Dropdown.Item>  
-                    )} */}
+                  <span>Укажите высоту стекла:</span>
+                  <DropdownButton className="mb-3" id="dropdown-basic-button"  title={device.width.size}>
+                    {device.height.map(type =>
+                      <Dropdown.Item  key={type.id} onClick={() => device.setSelectedHeight(type)} >{type.size}</Dropdown.Item>  
+                    )}
                   </DropdownButton>
                   <button type="button" class="btn btn-danger" onClick={dropFilter}>Сбросить фильтры</button>
                 </div>

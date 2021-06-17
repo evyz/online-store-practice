@@ -68,7 +68,7 @@
     bottom: 2%;
     right: 2%;
 
-    background: #dddddd; 
+    background: #ebebeb; 
 
     display: flex;
     flex-direction: column;
@@ -87,6 +87,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+
 
     background: white;
 
@@ -107,7 +108,48 @@
 .chat .message {
     width: 100%;
     height: 290px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    overflow: hidden;
 }
+
+.chat .message .dialog {
+    width: 90%;
+    height: 90%;
+
+    overflow-y: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.chat .message .dialog .msg{
+    margin-bottom: 10px;
+    width: 80%;
+
+    padding: 5px;
+
+    display: flex;
+    justify-content: flex-start;
+
+    border-radius: 15px;
+
+    font-size: 14px;
+    color: black;
+
+    background: white;
+}
+
+.chat .message .dialog .user{
+    margin-left: auto;
+    background: #83b6f0;
+}
+
 
 .chat .add {
     width: 100%;
@@ -136,8 +178,24 @@
 
 .chat .add .send {
     margin-right: 10px;
-    width: 35px;
+    width: 50px;
+    height: 50px;
+    
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.chat .add .send img{
+    width: 30px;
+    margin-right: 5px;
+}
+
+
+
+
 
 .non-chat {
     display: none;

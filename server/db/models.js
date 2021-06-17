@@ -19,9 +19,17 @@ const CartDevice = sequelize.define('cart_device', {
 const Device = sequelize.define('device' , {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    price: {type: DataTypes.INTEGER, allowNull: false},
-    size_w: {type: DataTypes.INTEGER},
-    size_h: {type: DataTypes.INTEGER}
+    price: {type: DataTypes.INTEGER, allowNull: false}
+})
+
+const Width = sequelize.define('width' , {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    size: {type: DataTypes.INTEGER, allowNull: false}
+})
+
+const Height = sequelize.define('height' , {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    size: {type: DataTypes.INTEGER, allowNull: false}
 })
 
 const Type = sequelize.define('type', {
@@ -43,9 +51,17 @@ CartDevice.belongsTo(Device)
 Type.hasMany(Device)
 Device.belongsTo(Type)
 
+Width.hasMany(Device)
+Device.belongsTo(Width)
+
+Height.hasMany(Device)
+Device.belongsTo(Height)
+
 module.exports = {
     User,
     Device,
+    Width,
+    Height,
     Cart,
     CartDevice,
     Type

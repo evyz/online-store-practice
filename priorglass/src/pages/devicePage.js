@@ -44,8 +44,7 @@ const DevicePage = () => {
                             <Col sm={8}>
                                 <h1>{device.name}</h1>
                                 <h1><p>Описание</p></h1>
-                                <p>Ширина: {device.size_w}</p>
-                                <p>Высота: {device.size_h}</p>
+                                {/* ------ Сделать после того, как исправишь БД ------  */}
                                 <h5>{device.price}&#8381;</h5>
                             </Col>
                             <Col sm={4} className="d-flex flex-column align-items-center">

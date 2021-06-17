@@ -14,6 +14,20 @@ export const fetchTypes = async () => {
 
 // ------- Типы ------- //
 
+// ------- Размеры ------- //
+
+export const getWidth = async () => {
+    const {data} = await $host.get('/api/size/width')
+    return data
+}
+
+export const getHeight = async () => {
+    const {data} = await $host.get('/api/size/height')
+    return data
+}
+
+// ------- Размеры ------- //
+
 
 
 // ------- Девайс ------- //
@@ -23,8 +37,8 @@ export const createDevice = async (name,price,width,height, typeId) => {
     return data
 }   
 
-export const fetchDevices = async (typeId) => {
-    const {data} = await $host.get('/api/device', {params: {typeId}})
+export const fetchDevices = async (widthId, heightId, typeId) => {
+    const {data} = await $host.get('/api/device', {params: {widthId, heightId,typeId}})
     return data
 }
 

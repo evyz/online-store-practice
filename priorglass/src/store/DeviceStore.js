@@ -2,28 +2,13 @@ import {makeAutoObservable} from 'mobx'
 
 export default class UserStore {
     constructor() {
-        this._types = [
-            {id: 1, name: "Прозрачное стекло"},
-            {id: 2, name: "Осветленное стекло"},
-            {id: 3, name: "Тонированное серое стекло"},
-            {id: 4, name: "Тонированное бронзовое стекло"},
-            {id: 5, name: "Матовое стекло"},
-            {id: 6, name: "Зеркало"}
-        ]
+        this._types = []
         this._type = {}
-        this._width = [
-            {id: 1, width: 100  },
-            {id: 2, width: 1000 },
-            {id: 3, width: 1500 },
-            {id: 4, width: 100  },
-            {id: 5, width: 100  }
-
-        ]
+        this._width = []
         this._selectedWidth = {}
-        this._devices = [
-            {id: 1, name: "Какое-нить", price: 1000, width: 100, height: 200, typeId: 1},
-            {id: 2, name: "Какое-нить 2", price: 1500, width: 100, height: 200, typeId: 1}
-        ]
+        this._height = []
+        this._selectedHeight = {}
+        this._devices = []
         makeAutoObservable(this)
     }
 
@@ -39,6 +24,13 @@ export default class UserStore {
     }
     setSelectedWidth(width){
         this._selectedWidth = width
+    }
+
+    setHeight(sizes){
+        this._height = sizes
+    }
+    setSelectedHeight(height){
+        this._selectedHeight = height
     }
 
     setDevices(devices){
@@ -57,6 +49,13 @@ export default class UserStore {
     }
     get selectedWidth(){
         return this._selectedWidth
+    }
+
+    get height(){
+        return this._height
+    }
+    get selectedHeight(){
+        return this._selectedHeight
     }
 
     get devices(){
