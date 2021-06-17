@@ -12,7 +12,14 @@ import { useHistory } from 'react-router'
 import { DEVICE_ROUTE } from '../routes/consts'
 import { fetchDevices, fetchTypes } from '../http/deviceApi'
 
+import '../css/Modal.css'
+
+import chat from '../assets/ico/chat.svg'
+import Chat from '../components/modal/chat'
+
 const Main = observer(() => {
+  
+    const [chatActive, setChatActive] = useState(false)
     const {device} = useContext(Context)
 
     const history = useHistory()
@@ -81,6 +88,14 @@ const Main = observer(() => {
               </Col>
             </Row>
           </Container>
+
+
+          <Chat active={chatActive} setActive={setChatActive} />
+          <div onClick={() => setChatActive(true)} className="chat-ico btn-primary" >
+            <img src={chat} />
+          </div>
+
+
         </main>
     )
 })

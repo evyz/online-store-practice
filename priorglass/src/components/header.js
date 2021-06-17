@@ -12,6 +12,7 @@ import jwtDecode from 'jwt-decode'
 
 import Calculator from './modal/calculator'
 
+
 const Header = observer(() => {
   const {user} = useContext(Context)
 
@@ -55,6 +56,7 @@ const Header = observer(() => {
         {user.isAuth ? <Button className="ml-3" onClick={() => history.push(ADMIN_ROUTE)}>Панель Админа</Button> : <></>}
         <Calculator  active={calc} setActive={setCalc} />
       </Navbar>
+     
     </header>
   );
 })
