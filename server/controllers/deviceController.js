@@ -47,9 +47,9 @@ class DeviceController{
 
 
     async createDevice(req,res,next){
-        const {name, price,  typeId, width, height} = req.body
+        const {name, price, width, height, typeId} = req.body
         
-        const device = await Device.create({name, price, typeId, size_w: width, size_h: height})
+        const device = await Device.create({name, price, size_w: width, size_h: height, typeId})
         
         return res.json(device)
     }

@@ -31,7 +31,6 @@ const Type = sequelize.define('type', {
 
 
 
-
 User.hasOne(Cart)
 Cart.belongsTo(User)
 

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -10,11 +10,31 @@ import { observer } from 'mobx-react-lite'
 import { Context } from '..'
 import { useHistory } from 'react-router'
 import { DEVICE_ROUTE } from '../routes/consts'
+import { fetchDevices, fetchTypes } from '../http/deviceApi'
 
 const Main = observer(() => {
     const {device} = useContext(Context)
 
     const history = useHistory()
+
+    useEffect(() => {
+      fetchTypes().then(data => {
+        device.setTypes(data)
+      });
+      fetchDevices().then(data => {
+        device.setDevices(data)
+      })
+    }, [])
+
+    useEffect(() => {
+      fetchDevices(device.type.id).then(data => {
+        device.setDevices(data)
+      })
+    }, [device.type])
+
+    const dropFilter = () => {
+      device.setType({})
+    }
 
     return (
         <main>
@@ -22,21 +42,23 @@ const Main = observer(() => {
             <Row>
               <Col sm={4}>
                 <div className="position-fixed">
-                  <DropdownButton className="mb-3" id="dropdown-basic-button" title="Вид стекла ">
+                  <span>Укажите тип стекла:</span>
+                  <DropdownButton className="mb-3" id="dropdown-basic-button"  title={device.type.name}>
                     {device.types.map(type =>
-                      <Dropdown.Item href="#/" key={type.id}>{type.name}</Dropdown.Item>  
+                      <Dropdown.Item  key={type.id} onClick={() => device.setType(type)} >{type.name}</Dropdown.Item>  
                     )}
                   </DropdownButton>
                   <DropdownButton className="mb-3" id="dropdown-basic-button" title="Ширина, мм ">
-                    {device.sizes.map(width => 
-                      <Dropdown.Item href="#/120" key={width.id}>{width.width}</Dropdown.Item>  
+                    {device.width.map(width => 
+                      <Dropdown.Item  key={width.id}>{width.width}</Dropdown.Item>  
                     )}
                   </DropdownButton>
                   <DropdownButton className="mb-3" id="dropdown-basic-button" title="Высота, мм ">
-                  {device.sizes.map(height => 
-                      <Dropdown.Item href="#/120" key={height.id}>{height.height}</Dropdown.Item>  
-                    )}
+                  {/* {device.sizes.map(height => 
+                      <Dropdown.Item  key={height.id}>{height.height}</Dropdown.Item>  
+                    )} */}
                   </DropdownButton>
+                  <button type="button" class="btn btn-danger" onClick={dropFilter}>Сбросить фильтры</button>
                 </div>
               </Col>
               <Col sm={8}>

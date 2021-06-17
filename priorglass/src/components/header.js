@@ -4,28 +4,42 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/Formcontrol'
 import Button from 'react-bootstrap/Button'
 import { useHistory } from 'react-router'
-import { ADMIN_ROUTE, MAIN_ROUTE } from '../routes/consts'
+import { ADMIN_ROUTE, LOGIN_ROUTE, MAIN_ROUTE } from '../routes/consts'
+import { observer } from 'mobx-react-lite'
+import { useContext } from 'react'
+import { Context } from '..'
 
-const Header = () => {
+const Header = observer(() => {
+  const {user} = useContext(Context)
   
   const history = useHistory()
+
+  const logOut = () => {
+    user.setUser({})
+    user.setIsAuth(false)
+    localStorage.removeItem('token')
+    history.push(LOGIN_ROUTE)
+}
 
   return (
     <header>
       <Navbar bg="light" variant="light">
         <Navbar.Brand href={MAIN_ROUTE}>ПриорГласс</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="#about">О Компании</Nav.Link>
-          <Nav.Link href="#other">Другое</Nav.Link>
+          <Nav.Link>О Компании</Nav.Link>
+          <Nav.Link>Другое</Nav.Link>
         </Nav>
         <Form inline>
-          <FormControl type="text" placeholder="Поиск" className="mr-sm-2" />
-          <Button variant="outline-primary">Поиск</Button>
+          {!user.isAuth ? 
+          <Button variant="outline-primary" onClick={() => history.push(LOGIN_ROUTE)}>Авторизация</Button>
+          :
+          <Button variant="outline-primary" onClick={logOut}>Выйти из аккаунта</Button>
+          }
         </Form>
-        <Button className="ml-3" onClick={() => history.push(ADMIN_ROUTE)}>Панель Админа</Button>
+        {user.isAuth ? <Button className="ml-3" onClick={() => history.push(ADMIN_ROUTE)}>Панель Админа</Button> : <></>}
       </Navbar>
     </header>
   );
-}
+})
 
 export default Header;

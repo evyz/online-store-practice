@@ -1,37 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
+import { deleteDeviceFromBasket, fetchBasket } from '../http/deviceApi'
 
 const Basket = () => {
 
 
     // ------ Моковые данные для корзины ----- //
-    
-    const devices = [
-        {id: 1, name: "Какое-нить", price: 1000, width: 100, height: 200, typeId: 1},
-        {id: 2, name: "Какое-нить 2", price: 1500, width: 100, height: 200, typeId: 1},
-        {id: 3, name: "Какое-нить 3", price: 2500, width: 100, height: 200, typeId: 1},
-        {id: 4, name: "Какое-нить 4", price: 2000, width: 100, height: 200, typeId: 1},
-        {id: 4, name: "Какое-нить 4", price: 2000, width: 100, height: 200, typeId: 1},
-        {id: 4, name: "Какое-нить 4", price: 2000, width: 100, height: 200, typeId: 1},
-        {id: 4, name: "Какое-нить 4", price: 2000, width: 100, height: 200, typeId: 1},
-        {id: 4, name: "Какое-нить 4", price: 2000, width: 100, height: 200, typeId: 1},
-        {id: 4, name: "Какое-нить 4", price: 2000, width: 100, height: 200, typeId: 1},
-        {id: 4, name: "Какое-нить 4", price: 2000, width: 100, height: 200, typeId: 1},
-        {id: 4, name: "Какое-нить 4", price: 2000, width: 100, height: 200, typeId: 1},
-        {id: 5, name: "Какое-нить 5", price: 5500, width: 100, height: 200, typeId: 1}
-    ]
+
+    const [devices,setDevices] = useState([])
 
     // ------ Сделать также подсчёт всей суммы, на которую набрал юзер в корзину ----- //
 
-    let sum = devices.reduce(function(prev, current) {
-        return prev + current.price
-    }, 0);
+    let sum = 0;
+
+    let count = devices.map(device => sum += Number(device.device.price))
 
     // ------ Узнать есть ли что-нибудь в корзине ------ //
 
+    useEffect(() => {
+        fetchBasket().then(data => {
+            setDevices(data)
+        })
+    }, [])
+
+    const dropDevice = (id) => {
+        deleteDeviceFromBasket(id).then(data => {
+            window.location.reload()
+        })
+    }
 
 
     return (
@@ -43,16 +42,16 @@ const Basket = () => {
                         {devices.map(device => 
                             <div className="w-25 m-3" key={device.id}>
                                 <img src="https://via.placeholder.com/100" />
-                                <h5>{device.name}</h5> 
-                                <p className="d-inline-block">{device.price}</p>
-                                <Button className="ml-3">Удалить</Button>
+                                <h5>{device.device.name}</h5> 
+                                <p className="d-inline-block">{device.device.price} &#8381;</p>
+                                <Button className="ml-3" onClick={() => dropDevice(device.id)}>Удалить</Button>
                             </div>
                         )}
                     </Col>
                     <Col sm={4}>
                         <div className="position-fixed my-3">
                             <p>Общая стоимость: {sum}&#8381;</p>
-                            <Button>Оформить заказ</Button>
+                            <Button >Оформить заказ</Button>
                         </div>
                     </Col>
                 </Row>

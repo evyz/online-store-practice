@@ -22,6 +22,16 @@ class CartController {
 
         return res.json(cart)
     }
+
+    async deleteDeviceFromCart(req,res,next){
+        const user = req.user
+        const {id} = req.params
+
+        const dropCart = await CartDevice.destroy({where: {id : id}})
+
+        return res.json(dropCart)
+    }
+
 }
 
 module.exports = new CartController()

@@ -10,14 +10,16 @@ export default class UserStore {
             {id: 5, name: "Матовое стекло"},
             {id: 6, name: "Зеркало"}
         ]
-        this._sizes = [
-            {id: 1, width: 100, height: 200},
-            {id: 2, width: 100, height: 200},
-            {id: 3, width: 100, height: 200},
-            {id: 4, width: 100, height: 200},
-            {id: 5, width: 100, height: 200}
+        this._type = {}
+        this._width = [
+            {id: 1, width: 100  },
+            {id: 2, width: 1000 },
+            {id: 3, width: 1500 },
+            {id: 4, width: 100  },
+            {id: 5, width: 100  }
 
         ]
+        this._selectedWidth = {}
         this._devices = [
             {id: 1, name: "Какое-нить", price: 1000, width: 100, height: 200, typeId: 1},
             {id: 2, name: "Какое-нить 2", price: 1500, width: 100, height: 200, typeId: 1}
@@ -28,9 +30,17 @@ export default class UserStore {
     setTypes(types) {
         this._types = types
     }
-    setSizes(sizes){
-        this._sizes = sizes
+    setType(type){
+        this._type = type
     }
+
+    setWidth(sizes){
+        this._width = sizes
+    }
+    setSelectedWidth(width){
+        this._selectedWidth = width
+    }
+
     setDevices(devices){
         this._devices = devices
     }
@@ -38,9 +48,17 @@ export default class UserStore {
     get types(){
         return this._types
     }
-    get sizes(){
-        return this._sizes
+    get type(){
+        return this._type
     }
+
+    get width(){
+        return this._width
+    }
+    get selectedWidth(){
+        return this._selectedWidth
+    }
+
     get devices(){
         return this._devices
     }

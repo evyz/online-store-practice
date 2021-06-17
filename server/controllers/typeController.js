@@ -2,7 +2,7 @@ const { Type } = require("../db/models")
 const ApiError = require("../middleware/error/ApiError")
 
 class TypeController{
-    async getAll(req,rex,next){
+    async getAll(req,res,next){
         const types = await Type.findAll({})
         return res.json(types)
     }
