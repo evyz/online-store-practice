@@ -1,5 +1,7 @@
 # online-store-practice
 
+## Практику выполняли: Антонов Ярослав и Голицын Николай. 
+
 BackEnd. NodeJs + Express + MySQL + Sequelize
 
 Команды для запуска:
