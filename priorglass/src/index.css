@@ -5,14 +5,29 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: black;
+}
+
+input {
+  color: black;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+    color: black;
 }
 
 .content input {
   background: white !important;
   border: 1px solid #ced4da !important;
+  color: black !important;
+}
+
+
+@media (max-width: 600px) {
+  .position-fixed{
+    position: initial !important;
+    margin-bottom: 1rem;
+  }
 }

@@ -1,4 +1,13 @@
-const { Device, Width, Height } = require("../db/models")
+const { Device, Width, Height, Forma } = require("../db/models");
+const ApiError = require("../middleware/error/ApiError");
+
+
+const checkProduct = async (Scheme, size, info) => {
+    const devices = await Scheme.findOne({where : {size}})
+    if(devices){
+        return true
+    }
+}
 
 class DeviceController{
     async getAll(req,res,next){
@@ -40,28 +49,23 @@ class DeviceController{
     }
     async getOne(req,res,next){
         const {id} = req.params
-        const device = await Device.findOne({where : {id}})
+        const device = await Device.findOne({include: [{
+            model: Width,
+        }, {
+            model: Height,
+        }],where : {id}})
 
         return res.json(device)
     }
 
 
     async createDevice(req,res,next){
-        const {name, price, width, height, typeId} = req.body
+        const {name, price, width, height ,typeId} = req.body
 
         const checkWidth = await Width.findOne({where : {size : width}})
-        let addWidth;
-        let addHeight;
-        if(!checkWidth){
-            addWidth = await Width.create({size : width})
-        }
-
         const checkHeight = await Height.findOne({where : {size : height}})
-        if(!checkHeight){
-            addHeight = await Height.create({size : height})
-        }
-        
-        const device = await Device.create({name, price, widthId : addWidth.id, heightId: addHeight.id, typeId})
+
+        const device = await Device.create({name, price, widthId : checkWidth.id, heightId: checkHeight.id, typeId})
         
         return res.json(device)
     }
@@ -74,6 +78,47 @@ class DeviceController{
     async getHeight (req,res,next){
         const devices = await Height.findAll()
         return res.json(devices)
+    }
+
+    async getForma(req,res,next){
+        const devices = await Forma.findAll()
+        return res.json(devices)
+    }
+
+
+    async createWidth(req,res,next){
+        const {size} = req.body
+
+        const devices = await Width.findOne({where : {size}})
+        if(devices){
+            return next(ApiError.badRequest(`Данная ширина была уже создана`))
+        }
+
+        const create = await Width.create({size})
+        return res.json(create)
+    }
+
+    async createHeight(req,res,next){
+        const {size} = req.body
+
+        const devices = await Height.findOne({where : {size}})
+        if(devices){
+            return next(ApiError.badRequest(`Данная высота была уже создана`))
+        }
+
+        const create = await Height.create({size})
+        return res.json(create)
+    }
+
+    async createForma(req,res,next){
+        const {name} = req.body 
+        const devices = await Forma.findOne({where : {name}})
+        if(devices){
+            return next(ApiError.badRequest(`Данная форма уже создана!`))
+        }
+
+        const create = await Forma.create({name})
+        return res.json(create)
     }
 
 }

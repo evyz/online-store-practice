@@ -10,7 +10,7 @@ import { observer } from 'mobx-react-lite'
 import { Context } from '..'
 import { useHistory } from 'react-router'
 import { DEVICE_ROUTE } from '../routes/consts'
-import { fetchDevices, fetchTypes, getHeight, getWidth } from '../http/deviceApi'
+import { fetchDevices, fetchTypes, getForma, getHeight, getWidth } from '../http/deviceApi'
 
 import '../css/Modal.css'
 
@@ -89,7 +89,7 @@ const Main = observer(() => {
                       <Card.Img variant="top" src="https://via.placeholder.com/100" />
                       <Card.Body>
                         <h5>{device.name}</h5>
-                        <Card.Text>Цена: {device.price}&#8381;</Card.Text>
+                        <Card.Text>От {device.price}&#8381;/м²</Card.Text>
                         <Button variant="primary" onClick={() => history.push(DEVICE_ROUTE + '/' + device.id) } >Подробнее</Button>
                       </Card.Body>  
                   </Card>

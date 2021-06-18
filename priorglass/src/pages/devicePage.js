@@ -9,6 +9,8 @@ import { BASKET_ROUTE, MAIN_ROUTE } from '../routes/consts'
 
 const DevicePage = () => {
     const [device, setDevice] = useState({})
+    const [width, setWidth] = useState({})
+    const [height, setHeight] = useState({})
     const [open, setOpen] = useState(false)
 
     const history = useHistory()
@@ -18,6 +20,8 @@ const DevicePage = () => {
     useEffect(() => {
         fetchDevice(id).then(data => {
             setDevice(data)
+            setWidth(data.width)
+            setHeight(data.height)
         })
     }, [id])
 
@@ -44,7 +48,11 @@ const DevicePage = () => {
                             <Col sm={8}>
                                 <h1>{device.name}</h1>
                                 <h1><p>Описание</p></h1>
-                                {/* ------ Сделать после того, как исправишь БД ------  */}
+                                <div className="my-3">
+                                    <h5>Производственные мощности</h5>
+                                    <span>минимальный размер: {width.size}X{height.size} мм</span><br />
+                                    <span>Толщина стекла: до "толщина" мм</span>
+                                </div>
                                 <h5>{device.price}&#8381;</h5>
                             </Col>
                             <Col sm={4} className="d-flex flex-column align-items-center">

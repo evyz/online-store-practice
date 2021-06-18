@@ -16,6 +16,16 @@ export const fetchTypes = async () => {
 
 // ------- Размеры ------- //
 
+export const createWidth = async (size) => {
+    const {data} = await $authHost.post('api/size/width', {size})
+    return data
+}
+
+export const createHeight = async (size) => {
+    const {data} = await $host.post('/api/size/height', {size})
+    return data
+}
+
 export const getWidth = async () => {
     const {data} = await $host.get('/api/size/width')
     return data

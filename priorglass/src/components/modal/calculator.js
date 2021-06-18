@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
 import '../../css/Modal.css'
+import { observer } from 'mobx-react-lite'
+import { Context } from '../..'
+import { fetchTypes, getHeight, getWidth } from '../../http/deviceApi'
 
-const Calculator = ({active, setActive}) => {
+const Calculator = observer(({active, setActive}) => {
+    const {device} = useContext(Context)
+
+    useEffect(() => {
+        fetchTypes().then(data => {
+            device.setTypes(data)
+        })
+        getWidth().then(data => {
+            device.setWidth(data)
+        })
+        getHeight().then(data => {
+            device.setHeight(data)
+        })
+    }, [])
+
     return(
         <div className={active ? "active" : "non-active"} onClick={() => setActive(false)}>
             <div className="content" onClick={e => e.stopPropagation()} >
@@ -16,24 +33,18 @@ const Calculator = ({active, setActive}) => {
                         <Col>
                             <Form.Label>Вид стекла</Form.Label>
                             <Form.Control as="select">
-                                <option>Прозрачное стекло</option>
-                                <option>Осветленное стекло</option>
-                                <option>Тонированное серое стекло</option>
-                                <option>Тонированное бронзовое стекло</option>
-                                <option>Матовое стекло</option>
-                                <option>Зеркало</option>
-                                <option>Зеркало осветленное</option>
-                                <option>Стеклопакет однокамерный 4-16-4</option>
-                                <option>Стеклопакет двухкамерный 4-10-4-10-4</option>
+                                {device.types.map(type => 
+                                    <option key={type.id} >{type.name}</option>    
+                                )}
                             </Form.Control>
                         </Col>
                         <Col>
-                            <Form.Label>Толщина</Form.Label>
+                            <Form.Label>Толщина</Form.Label>Q
                             <Form.Control as="select">
                                 <option>4 мм</option>
                                 <option>5 мм</option>
                                 <option>6 мм</option>
-                                <option>8 мм</option>
+                                <option>8 мм</option>   
                                 <option>10 мм</option>
                             </Form.Control>
                         </Col>
@@ -51,27 +62,17 @@ const Calculator = ({active, setActive}) => {
                         <Col>
                             <Form.Label>Ширина, мм: </Form.Label>
                             <Form.Control as="select">
-                                <option>100</option>
-                                <option>200</option>
-                                <option>500</option>
-                                <option>1000</option>
-                                <option>1500</option>
-                                <option>2000</option>
-                                <option>2500</option>
-                                <option>5000</option>
+                                {device.width.map(size => 
+                                    <option key={size.id} >{size.size}</option>
+                                )}
                             </Form.Control>
                         </Col>
                         <Col>
                             <Form.Label>Высота, мм: </Form.Label>
                             <Form.Control as="select">
-                                <option>100</option>
-                                <option>200</option>
-                                <option>500</option>
-                                <option>1000</option>
-                                <option>1500</option>
-                                <option>2000</option>
-                                <option>2500</option>
-                                <option>5000</option>
+                                {device.height.map(size =>
+                                    <option key={size.id}>{size.size}</option>    
+                                )}
                             </Form.Control>
                         </Col>
                     </Form.Row>
@@ -117,6 +118,6 @@ const Calculator = ({active, setActive}) => {
             </div>
         </div>
     )
-}
+})
 
 export default Calculator

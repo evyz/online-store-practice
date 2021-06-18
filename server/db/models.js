@@ -32,6 +32,11 @@ const Height = sequelize.define('height' , {
     size: {type: DataTypes.INTEGER, allowNull: false}
 })
 
+const Forma = sequelize.define('forma', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, allowNull: false, unique: true}
+})  
+
 const Type = sequelize.define('type', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
@@ -57,11 +62,15 @@ Device.belongsTo(Width)
 Height.hasMany(Device)
 Device.belongsTo(Height)
 
+Forma.hasMany(Device)
+Device.belongsTo(Forma)
+
 module.exports = {
     User,
     Device,
     Width,
     Height,
+    Forma,
     Cart,
     CartDevice,
     Type
