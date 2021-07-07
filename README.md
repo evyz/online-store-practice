@@ -11,8 +11,10 @@
 ### BackEnd
 
 <p>Инициализация</p>
+<ul>
 <li>npm i</li>
 <li>npm run dev</li>
+</ul>
 <p>СТЕК:</p>
 <ul>
 <li>NodeJs</li>
@@ -24,8 +26,10 @@
 ### FrontEnd 
 
 <p>Инициализация</p>
+<ul>
 <li>npm i</li>
 <li>npm run start</li>
+</ul>
 
 <p>СТЕК:</p>
 <li>ReactJs</li>
