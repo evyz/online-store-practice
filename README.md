@@ -8,13 +8,27 @@
 <li>React</li>
 <li>NodeJs</li>
 
-### BackEnd СТЕК:
+### BackEnd
+
+<p>Инициализация</p>
+<li>npm i</li>
+<li>npm run dev</li>
+
+СТЕК:
+<ul>
 <li>NodeJs</li>
 <li>Express</li>
 <li>Sequelize</li>
 <li>MySQL</li>
+</ul>
 
-### FrontEnd СТЕК:
+### FrontEnd 
+
+<p>Инициализация</p>
+<li>npm i</li>
+<li>npm run start</li>
+
+СТЕК:
 <li>ReactJs</li>
 <li>React-router-dom</li>
 <li>Axios</li>
