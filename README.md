@@ -13,8 +13,7 @@
 <p>Инициализация</p>
 <li>npm i</li>
 <li>npm run dev</li>
-
-СТЕК:
+<p>СТЕК:</p>
 <ul>
 <li>NodeJs</li>
 <li>Express</li>
@@ -28,7 +27,7 @@
 <li>npm i</li>
 <li>npm run start</li>
 
-СТЕК:
+<p>СТЕК:</p>
 <li>ReactJs</li>
 <li>React-router-dom</li>
 <li>Axios</li>
