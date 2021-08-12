@@ -21,6 +21,7 @@
 <li>Express</li>
 <li>Sequelize</li>
 <li>MySQL</li>
+<li>JWT</li>
 </ul>
 
 ### FrontEnd 
